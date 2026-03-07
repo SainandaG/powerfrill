@@ -217,7 +217,7 @@ const SolutionDetail: React.FC = () => {
 
                     {staticData.id === 'bess-info' && (
                         <section className="hub-cinematic-inspection" style={{ position: 'relative' }}>
-                            <div className="immersive-3d-journey" style={{ height: '200vh', position: 'relative' }}>
+                            <div className="immersive-3d-journey" style={{ height: '120vh', position: 'relative' }}>
                                 <div className="sticky-3d-pin" style={{ position: 'sticky', top: 0, height: '100vh', width: '100vw', left: 0, overflow: 'hidden' }}>
                                     <ExplodedBessCabinet accent={staticData.accent} />
                                 </div>

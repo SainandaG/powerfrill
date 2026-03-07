@@ -358,8 +358,8 @@
     overflow: hidden;
     background: #000;
     z-index: 10;
-    margin-top: 12rem;
-    margin-bottom: 12rem;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
 }
 
 .full-bleed-breakout {
@@ -1220,7 +1220,7 @@
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 .solution-group-section {
-    margin-bottom: 8rem;
+    margin-bottom: 4rem;
 }
 
 .group-section-heading {
@@ -1480,7 +1480,8 @@
 
 /* 3D Anatomy Frame Utility */
 .hub-anatomy-frame-container {
-    margin-top: 4rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -1518,15 +1519,7 @@
     line-height: 1.6;
 }
 
-.hub-anatomy-frame-container {
-    width: 100vw;
-    height: 100vh;
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
-    position: relative;
-    overflow: hidden;
-    background: #000;
-}
+
 
 .hub-cinematic-inspection {
     width: 100vw;

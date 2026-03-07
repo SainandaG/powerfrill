@@ -337,7 +337,7 @@ const ExplodedBessCabinet: React.FC<ExplodedBessCabinetProps> = ({ accent = '#ff
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: containerRef.current,
-                start: "top center",
+                start: "top 15%",
                 end: "bottom center",
                 scrub: 1.5,
                 // snap: {
