@@ -98,7 +98,7 @@ const sections = [
         ],
         route: '/hub/about',
         actionLabel: 'OUR IDENTITY',
-        bgImage: '/assets/hero-about-monetize-bg.png',
+        bgImage: '/assets/hero-about-bg.png',
         isLight: false
     }
 ];

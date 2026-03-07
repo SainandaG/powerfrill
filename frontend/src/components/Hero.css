@@ -540,30 +540,47 @@
 }
 
 /* --- Social Media Dock & Bottom Right Text --- */
+/* --- Social Media Dock & Bottom Right Text --- */
 .hero-social-dock {
     position: fixed;
-    bottom: 60px;
+    bottom: 48px;
     right: 48px;
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
     gap: 1.5rem;
     z-index: 100;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 0.75rem 1.5rem;
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hero-social-dock.is-black-text {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .hero-social-dock.is-black-text .hsd-link,
 .hero-social-dock.is-black-text .hsd-scroll-text {
     color: #000000 !important;
-    opacity: 0.8;
 }
 
 .hsd-scroll-text {
-    font-size: 0.6rem;
-    letter-spacing: 0.3em;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
-    font-weight: 700;
-    writing-mode: vertical-rl;
-    margin-top: 1rem;
+    font-weight: 800;
+    color: #ffffff;
+    padding-right: 1rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    margin-right: 0.5rem;
+}
+
+.header.is-light .hsd-scroll-text {
+    color: #000;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .hsd-link {
@@ -571,6 +588,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #ffffff;
 }
 
 .hsd-link svg {
@@ -579,8 +597,21 @@
 }
 
 .hsd-link:hover {
-    opacity: 1 !important;
+    color: #ff6600 !important;
     transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .hero-social-dock {
+        right: 24px;
+        bottom: 120px;
+        /* Avoid overlapping mobile info panel */
+        padding: 0.6rem 1.25rem;
+    }
+
+    .hsd-scroll-text {
+        display: none;
+    }
 }
 
 .rimac-content-container {
