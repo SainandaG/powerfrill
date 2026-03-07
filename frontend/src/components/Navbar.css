@@ -218,9 +218,12 @@
 .bar {
     width: 32px;
     height: 2.5px;
-    background: #ff6600;
-    box-shadow: 0 0 10px rgba(255, 102, 0, 0.4);
+    background: #ffffff;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.header.is-light .bar {
+    background: #000000;
 }
 
 .bar:last-child {
@@ -475,13 +478,47 @@ body.menu-is-open .main-content-wrapper {
     mix-blend-mode: normal !important;
 }
 
-/* --- Cart & Drawer Styling --- */
+/* --- Navbar Icons & Glass Pill Actions --- */
 .header-actions {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
-    mix-blend-mode: difference;
+    gap: 1rem;
     z-index: 50;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 0.35rem 1rem;
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 480px) {
+    .header-actions {
+        padding: 0.25rem 0.5rem;
+        gap: 0.5rem;
+    }
+}
+
+.header.is-light .header-actions {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.theme-toggle-btn {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle-btn:hover {
+    color: #ff6600;
+    transform: scale(1.1);
 }
 
 .cart-button {
@@ -490,18 +527,13 @@ body.menu-is-open .main-content-wrapper {
     cursor: pointer;
     position: relative;
     padding: 0.5rem;
-    color: #ff6600;
-    filter: drop-shadow(0 0 12px rgba(255, 102, 0, 0.5));
+    color: #ffffff;
     transition: all 0.3s ease;
 }
 
 .cart-button:hover {
-    color: #ffac33;
+    color: #ff6600;
     transform: scale(1.1);
-}
-
-.header.is-light .cart-button {
-    color: #ffffff;
 }
 
 /* User Account Actions in Header */
@@ -513,24 +545,31 @@ body.menu-is-open .main-content-wrapper {
 .login-icon-btn {
     background: transparent;
     border: none;
-    color: #ff6600;
+    color: #ffffff;
     padding: 0.5rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-    filter: drop-shadow(0 0 12px rgba(255, 102, 0, 0.5));
-    margin-top: 2px;
 }
 
 .login-icon-btn:hover {
-    color: #ffac33;
+    color: #ff6600;
     transform: scale(1.1);
 }
 
-.header.is-light .login-icon-btn {
-    color: #ffffff;
+/* On Light Pages */
+.header.is-light .theme-toggle-btn,
+.header.is-light .login-icon-btn,
+.header.is-light .cart-button {
+    color: #000000;
+}
+
+.header.is-light .theme-toggle-btn:hover,
+.header.is-light .login-icon-btn:hover,
+.header.is-light .cart-button:hover {
+    color: #ff6600;
 }
 
 .user-profile-menu {
