@@ -319,8 +319,8 @@ const Hero: React.FC = () => {
                         onMouseLeave={() => setHoveredSection(null)}
                         className={`hero-nav-dot-item ${activeSection === i ? 'is-active' : ''} ${hoveredSection === i ? 'is-hovered' : ''}`}
                     >
-                        <div className="hero-nav-dot-line" style={{ background: activeSection === i || hoveredSection === i ? s.accent : 'var(--text-secondary)', opacity: activeSection === i || hoveredSection === i ? 1 : 0.5 }} />
-                        <span className="hero-nav-dot-label" style={{ color: activeSection === i ? s.accent : hoveredSection === i ? 'var(--text-primary)' : 'var(--text-secondary)' }}>
+                        <div className="hero-nav-dot-line" style={{ background: activeSection === i || hoveredSection === i ? s.accent : 'rgba(255, 255, 255, 0.6)', opacity: activeSection === i || hoveredSection === i ? 1 : 0.5 }} />
+                        <span className="hero-nav-dot-label" style={{ color: activeSection === i ? s.accent : hoveredSection === i ? '#ffffff' : 'rgba(255, 255, 255, 0.6)' }}>
                             {s.id} {s.label}
                         </span>
                     </button>
