@@ -7,12 +7,19 @@
     width: 100%;
     height: 100vh;
     height: 100dvh;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     color: #fff;
     background: #000000;
     font-family: 'Outfit', sans-serif;
     transition: background 0.8s ease;
     user-select: none;
+    -webkit-overflow-scrolling: touch;
+    /* Better mobile scroll */
+}
+
+.hero-scroll-section {
+    height: 100vh;
 }
 
 .hero-grid-overlay {
@@ -53,19 +60,30 @@
     flex-direction: column;
     gap: 1.5rem;
     opacity: 1;
-    /* Keep visible by default */
     transition: opacity 0.5s ease;
+    pointer-events: none;
+    /* Let scroll through */
+}
+
+.hero-side-scroller-nav button {
+    pointer-events: auto;
+    /* Buttons remain clickable */
 }
 
 .hero-nav-dot-item {
-    background: none;
-    border: none;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 40px;
+    /* Pill shape */
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    padding: 0.4rem 0;
-    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    /* Added padding for background */
+    margin-left: -1rem;
+    /* Offset padding to keep text aligned */
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     opacity: 0.6;
     /* Persistent visibility */
 }
@@ -74,6 +92,9 @@
 .hero-nav-dot-item.is-active,
 .hero-nav-dot-item.is-hovered {
     opacity: 1;
+    background: rgba(255, 255, 255, 0.05);
+    /* Base subtle highlight */
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
 .hero-nav-dot-line {
@@ -137,53 +158,151 @@
     margin-bottom: 1.5rem;
 }
 
+/* --- Social Links below Button --- */
+.rimac-social-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-top: 0.5rem;
+}
+
+.rsl-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 0.8;
+}
+
+.rsl-link svg {
+    width: 22px;
+    height: 22px;
+}
+
+.rsl-link.instagram {
+    color: #E1306C;
+    /* Instagram Pink */
+}
+
+.rsl-link.linkedin {
+    color: #0077B5;
+    /* LinkedIn Blue */
+}
+
+.rsl-link:hover {
+    opacity: 1;
+    transform: translateY(-3px) scale(1.1);
+}
+
+.rsl-link.instagram:hover {
+    filter: drop-shadow(0 0 8px rgba(225, 48, 108, 0.4));
+}
+
+.rsl-link.linkedin:hover {
+    filter: drop-shadow(0 0 8px rgba(0, 119, 181, 0.4));
+}
+
 @media (max-width: 768px) {
-    .hero-nav-info-panel {
-        right: 5% !important;
-        left: 5% !important;
-        top: auto !important;
-        bottom: 120px !important;
-        /* Lowered slightly but raised z-index */
-        transform: none !important;
-        width: 90% !important;
-        /* Force constraint instead of auto */
-        max-width: 400px !important;
-        box-sizing: border-box !important;
-        padding: 1.25rem !important;
-        animation: panelEnterMobile 0.6s ease-out forwards !important;
-        z-index: 300;
-        background: rgba(0, 0, 0, 0.85);
-        /* More opaque for readability */
-    }
-
-    .hero-discover-action {
-        bottom: 70px !important;
-        left: 5% !important;
-        padding: 0.8rem 1rem !important;
-        font-size: 0.6rem !important;
-        width: 90% !important;
+    .rimac-content-container {
+        padding: 60px 4% 40px !important;
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
         text-align: center !important;
-        z-index: 400;
+        height: 100% !important;
+        min-height: auto !important;
     }
 
-    .hnip-title {
-        font-size: clamp(1.2rem, 6vw, 1.6rem) !important;
-        word-wrap: break-word;
+    .hide-mobile {
+        display: none !important;
     }
 
-    .hnip-desc {
-        font-size: 0.8rem !important;
-        /* Slightly smaller to fit tight heights */
-        margin-bottom: 0.8rem !important;
+    .hide-desktop {
+        display: flex !important;
     }
 
-    .hnip-stats {
+    .hero-scroll-section {
+        height: 100vh !important;
+        /* Fix proper 100vh for mobile native, we don't want partial peek overlapping */
+        height: 100dvh !important;
+    }
+
+    .rimac-title {
+        font-size: clamp(2rem, 10vw, 3.5rem) !important;
+        margin-bottom: 1rem !important;
+        width: 100% !important;
+        line-height: 1.1 !important;
+    }
+
+    .rimac-description {
+        font-size: 0.85rem !important;
+        max-width: 90% !important;
+        margin: 0 auto 2rem !important;
+        padding: 0 10px;
+        line-height: 1.5 !important;
+    }
+
+    .rimac-stats {
+        flex-direction: column !important;
+        gap: 1.5rem !important;
+        margin-bottom: 2.5rem !important;
+    }
+
+    .rimac-stat-val {
+        font-size: 1.75rem !important;
+    }
+
+    .rimac-stat-unit {
+        font-size: 0.65rem !important;
+        margin-top: 2px !important;
+    }
+
+    .rimac-explore-btn {
+        width: 100% !important;
+        max-width: 250px !important;
+        padding: 12px 18px !important;
+        font-size: 0.65rem !important;
+    }
+
+    .hero-social-dock {
+        display: none !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .rimac-content-container {
+        padding: 75px 6% 30px !important;
+    }
+
+    .rimac-title {
+        font-size: clamp(1.75rem, 12vw, 2.5rem) !important;
+        margin-bottom: 0.75rem !important;
+    }
+
+    .rimac-description {
+        font-size: 0.75rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+
+    .rimac-stats {
         gap: 1rem !important;
-        padding-top: 1rem !important;
+        margin-bottom: 2rem !important;
     }
 
-    .hnip-stat-val {
-        font-size: 1rem !important;
+    .rimac-stat-val {
+        font-size: 1.5rem !important;
+    }
+
+    .rimac-stat-unit {
+        font-size: 0.55rem !important;
+    }
+
+    .rimac-eyebrow {
+        font-size: 0.65rem !important;
+        letter-spacing: 0.3em !important;
     }
 }
 
@@ -531,6 +650,11 @@
     .hero-side-scroller-nav {
         left: 20px;
     }
+
+    .hero-bottom-navigator {
+        display: none !important;
+        /* Hide dot indicator on mobile to avoid overlapping footer */
+    }
 }
 
 /* --- Social Media Dock & Bottom Right Text --- */
@@ -540,9 +664,18 @@
     right: 48px;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
+    /* Center align icons and text on desktop */
     gap: 1.5rem;
     z-index: 100;
+}
+
+.hsd-social-icons {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
 }
 
 .hero-social-dock.is-black-text .hsd-link,
@@ -561,10 +694,19 @@
 }
 
 .hsd-link {
-    transition: all 0.3s ease;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 40px;
+    height: 40px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
 }
 
 .hsd-link svg {
@@ -573,8 +715,24 @@
 }
 
 .hsd-link:hover {
-    opacity: 1 !important;
+    background: rgba(255, 102, 0, 0.6) !important;
+    border-color: #ff6600 !important;
     transform: scale(1.1);
+    color: white !important;
+}
+
+/* On hover preserve individual icon colors conceptually or use theme orange */
+.rsl-link.instagram:hover {
+    background: rgba(225, 48, 108, 0.6) !important;
+    border-color: #E1306C !important;
+    filter: none;
+    /* override original glow if needed */
+}
+
+.rsl-link.linkedin:hover {
+    background: rgba(0, 119, 181, 0.6) !important;
+    border-color: #0077b5 !important;
+    filter: none;
 }
 
 .rimac-content-container {
@@ -585,11 +743,18 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    padding: 60px 10%;
+    padding: 140px 10% 60px;
     /* General padding */
     z-index: 10;
     pointer-events: none;
     /* Let clicks pass through to video if needed, but we'll enable for children */
+}
+
+@media (max-width: 768px) {
+    .rimac-content-container {
+        padding: 85px 5% 40px;
+        /* Adjusted padding below header */
+    }
 }
 
 .rimac-content-container.layout-center {
@@ -623,14 +788,14 @@
 }
 
 .rimac-title {
-    font-size: clamp(3rem, 7vw, 5rem);
+    font-size: clamp(2.25rem, 8vw, 5rem);
     /* Larger bolder titles */
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: -0.04em;
     /* Tight negative tracking for technical feel */
-    margin-bottom: 1.5rem;
-    line-height: 0.9;
+    margin-bottom: 1rem;
+    line-height: 0.95;
     max-width: 900px;
     color: var(--text-primary);
 }
@@ -645,12 +810,25 @@
     font-weight: 400;
 }
 
+.rimac-stats-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 .rimac-stats {
     display: flex;
     justify-content: center;
     gap: 4rem;
     /* More spacing Rimac style */
     margin-bottom: 3rem;
+}
+
+@media (max-width: 480px) {
+    .rimac-stats {
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
 }
 
 .rimac-stat {
@@ -681,11 +859,13 @@
 /* --- Rimac Explore Button --- */
 .rimac-cta-wrapper {
     display: flex;
-    justify-content: inherit;
-    /* Align button with container's flex align */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     margin-top: 2rem;
     position: relative;
     z-index: 30;
+    gap: 2rem;
 }
 
 .rimac-explore-btn {
@@ -754,6 +934,7 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: 100;
+    pointer-events: none;
 }
 
 .scroll-line {
@@ -761,6 +942,27 @@
     height: 60px;
     background: linear-gradient(to bottom, transparent, var(--text-primary), transparent);
     animation: scrollLineMove 2s ease-in-out infinite;
+}
+
+.hide-mobile {
+    display: flex !important;
+}
+
+.hide-desktop {
+    display: none !important;
+}
+
+@keyframes pulseFade {
+
+    0%,
+    100% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(3px);
+    }
 }
 
 @keyframes scrollLineMove {
@@ -809,7 +1011,7 @@
 
 @media (max-width: 768px) {
     .rimac-stats {
-        gap: 2rem;
+        gap: 1.5rem;
         margin-bottom: 2rem;
     }
 
@@ -823,5 +1025,91 @@
 
     .hero-side-scroller-nav {
         display: none !important;
+    }
+
+    .hero-bottom-navigator {
+        display: none !important;
+    }
+
+    .rimac-scroll-indicator {
+        position: fixed !important;
+        bottom: 85px !important;
+        /* Above social dock */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        z-index: 50 !important;
+        pointer-events: none !important;
+    }
+
+    .scroll-line {
+        height: 30px;
+        /* shorter line on mobile */
+    }
+
+    .mobile-scroll-preview {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        animation: pulseFade 2s infinite;
+    }
+
+    .msp-text {
+        font-size: 0.55rem;
+        letter-spacing: 0.2em;
+        color: #ffffff !important;
+        text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    .msp-label {
+        font-size: 0.85rem;
+        font-weight: 800;
+        color: #ff6600 !important;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    .hero-social-dock {
+        position: fixed !important;
+        display: flex !important;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        bottom: 25px !important;
+        right: 0 !important;
+        left: 0 !important;
+        width: 100%;
+        gap: 2rem;
+        z-index: 50 !important;
+        pointer-events: none;
+        /* Crucial for mobile scroll */
+    }
+
+    .hero-social-dock a,
+    .hero-social-dock button {
+        pointer-events: auto;
+        /* Links clickable */
+    }
+
+    .hsd-social-icons {
+        display: flex;
+        flex-direction: row;
+        gap: 2rem;
+        justify-content: center;
+        width: 100%;
+        margin-top: 0;
+        margin-bottom: 0;
+        color: #fff !important;
+        /* Ensure icons are white */
+        opacity: 0.8;
+    }
+
+    .mobile-bottom-social .rsl-link svg {
+        width: 24px;
+        height: 24px;
+        filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.8));
     }
 }

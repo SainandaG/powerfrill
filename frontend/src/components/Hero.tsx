@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import Footer from "./Footer.tsx";
 import "./Hero.css";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -147,7 +148,7 @@ const Hero: React.FC = () => {
     // Emit event for Navbar color adjustment
     useEffect(() => {
         const event = new CustomEvent('heroThemeChange', {
-            detail: { isLight: sections[activeSection].isLight }
+            detail: { isLight: sections[activeSection]?.isLight || false }
         });
         window.dispatchEvent(event);
     }, [activeSection]);
@@ -187,8 +188,12 @@ const Hero: React.FC = () => {
                 trigger: sec,
                 scroller: containerRef.current,
                 start: "top 50%",
-                onEnter: () => setActiveSection(i),
-                onEnterBack: () => setActiveSection(i)
+                onEnter: () => {
+                    if (i < sections.length) setActiveSection(i);
+                },
+                onEnterBack: () => {
+                    if (i < sections.length) setActiveSection(i);
+                }
             });
         });
     }, { scope: containerRef });
@@ -203,113 +208,124 @@ const Hero: React.FC = () => {
     };
 
     return (
-        <div
-            ref={containerRef}
-            className="hero-page-rimac-v2"
-            style={{ overflowY: 'auto', scrollSnapType: 'y mandatory' }}
-        >
-            {/* Ambient Background Images with Parallax & Scale Effect */}
-            <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none', backgroundColor: '#050505' }}>
-                {sections.map((s, i) => {
-                    const isActive = activeSection === i;
-                    return (
-                        <div
-                            key={`bg-content-${i}`}
-                            className="hero-background-layer"
-                            style={{
-                                position: 'absolute',
-                                top: 0,
-                                left: 0,
-                                width: '100%',
-                                height: '100%',
-                                opacity: isActive ? 0.85 : 0,
-                                transform: isActive ? 'scale(1)' : 'scale(1.1)',
-                                filter: 'brightness(0.7) contrast(1.1)',
-                                transition: 'opacity 1.2s cubic-bezier(0.25, 0.1, 0.25, 1), transform 1.8s cubic-bezier(0.25, 0.1, 0.25, 1)',
-                            }}
-                        >
-                            {(s as any).bgVideo ? (
-                                <video
-                                    autoPlay
-                                    loop
-                                    muted
-                                    playsInline
-                                    poster={s.bgImage}
-                                    style={{
-                                        width: '100%',
-                                        height: '100%',
-                                        objectFit: 'cover'
-                                    }}
-                                >
-                                    <source src={(s as any).bgVideo} type="video/mp4" />
-                                </video>
-                            ) : (
-                                s.bgImage && (
-                                    <div
+        <>
+            <div
+                ref={containerRef}
+                className="hero-page-rimac-v2"
+                style={{
+                    overflowY: 'auto',
+                    scrollSnapType: 'y mandatory',
+                    height: '100dvh'
+                }}
+            >
+                {/* Ambient Background Images with Parallax & Scale Effect */}
+                <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none', backgroundColor: '#050505' }}>
+                    {sections.map((s, i) => {
+                        const isActive = activeSection === i;
+                        return (
+                            <div
+                                key={`bg-content-${i}`}
+                                className="hero-background-layer"
+                                style={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    width: '100%',
+                                    height: '100%',
+                                    opacity: isActive ? 0.85 : 0,
+                                    transform: isActive ? 'scale(1)' : 'scale(1.1)',
+                                    filter: 'brightness(0.7) contrast(1.1)',
+                                    transition: 'opacity 1.2s cubic-bezier(0.25, 0.1, 0.25, 1), transform 1.8s cubic-bezier(0.25, 0.1, 0.25, 1)',
+                                }}
+                            >
+                                {(s as any).bgVideo ? (
+                                    <video
+                                        autoPlay
+                                        loop
+                                        muted
+                                        playsInline
+                                        poster={s.bgImage}
                                         style={{
                                             width: '100%',
                                             height: '100%',
-                                            backgroundImage: `url(${s.bgImage})`,
-                                            backgroundSize: 'cover',
-                                            backgroundPosition: 'center',
+                                            objectFit: 'cover'
                                         }}
-                                    />
-                                )
-                            )}
-                        </div>
-                    );
-                })}
-            </div>
-
-            {/* Scrollable Content Layers */}
-            {sections.map((s, i) => (
-                <div
-                    key={`scroll-sec-${i}`}
-                    className="hero-scroll-section"
-                    style={{ height: '100vh', scrollSnapAlign: 'start', position: 'relative' }}
-                >
-                    <div className="rimac-content-container layout-center">
-                        <>
-                            <div className="rimac-eyebrow">
-                                <SplitChars>{`0${i + 1}`}</SplitChars> <SplitChars>{s.label}</SplitChars>
+                                    >
+                                        <source src={(s as any).bgVideo} type="video/mp4" />
+                                    </video>
+                                ) : (
+                                    s.bgImage && (
+                                        <div
+                                            style={{
+                                                width: '100%',
+                                                height: '100%',
+                                                backgroundImage: `url(${s.bgImage})`,
+                                                backgroundSize: 'cover',
+                                                backgroundPosition: 'center',
+                                            }}
+                                        />
+                                    )
+                                )}
                             </div>
-                            <h2 className="rimac-title">
-                                <SplitChars>{s.title}</SplitChars>
-                            </h2>
-                            <p className="rimac-description">
-                                <SplitWords>{s.description}</SplitWords>
-                            </p>
+                        );
+                    })}
+                </div>
 
-                            {s.stats && (
-                                <div className="rimac-stats">
-                                    {s.stats.map((st, si) => (
-                                        <div key={si} className="rimac-stat">
-                                            <span className="rimac-stat-val">{st.val}</span>
-                                            <span className="rimac-stat-unit">{st.unit}</span>
-                                        </div>
-                                    ))}
+                {/* Scrollable Content Layers */}
+                {sections.map((s, i) => (
+                    <div
+                        key={`scroll-sec-${i}`}
+                        className="hero-scroll-section"
+                        style={{ scrollSnapAlign: 'start', position: 'relative' }}
+                    >
+                        <div className="rimac-content-container layout-center">
+                            <>
+                                <div className="rimac-eyebrow">
+                                    <SplitChars>{`0${i + 1}`}</SplitChars> <SplitChars>{s.label}</SplitChars>
                                 </div>
-                            )}
-                        </>
+                                <h2 className="rimac-title">
+                                    <SplitChars>{s.title}</SplitChars>
+                                </h2>
+                                <p className="rimac-description">
+                                    <SplitWords>{s.description}</SplitWords>
+                                </p>
 
-                        <div className="rimac-cta-wrapper">
-                            <button
-                                className="rimac-explore-btn"
-                                onClick={() => navigate(s.route)}
-                            >
-                                <span className="btn-line left" />
-                                <span className="btn-text">EXPLORE</span>
-                                <span className="btn-line right" />
-                            </button>
+                                {s.stats && (
+                                    <div className="rimac-stats-wrapper">
+                                        <div className="rimac-stats">
+                                            {s.stats.map((st, si) => (
+                                                <div key={si} className="rimac-stat">
+                                                    <span className="rimac-stat-val">{st.val}</span>
+                                                    <span className="rimac-stat-unit">{st.unit}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </>
+
+                            <div className="rimac-cta-wrapper">
+                                <button
+                                    className="rimac-explore-btn"
+                                    onClick={() => navigate(s.route)}
+                                >
+                                    <span className="btn-line left" />
+                                    <span className="btn-text">EXPLORE</span>
+                                    <span className="btn-line right" />
+                                </button>
+                            </div>
                         </div>
                     </div>
+                ))}
+
+                <div className="hero-scroll-section hide-desktop footer-mobile-wrapper" style={{ height: 'auto', scrollSnapAlign: 'end' }}>
+                    <Footer />
                 </div>
-            ))}
 
-            <div className="hero-grid-overlay" style={{ zIndex: 1, position: 'fixed' }} />
+                <div className="hero-grid-overlay" style={{ zIndex: 1, position: 'fixed' }} />
+            </div>
 
-
-            {/* Static UI - Fixed */}
+            {/* Static UI - Fixed overlays placed OUTSIDE container for maximum stability */}
             <nav className="hero-side-scroller-nav" style={{ position: 'fixed' }}>
                 {sections.map((s, i) => (
                     <button
@@ -318,6 +334,11 @@ const Hero: React.FC = () => {
                         onMouseEnter={() => setHoveredSection(i)}
                         onMouseLeave={() => setHoveredSection(null)}
                         className={`hero-nav-dot-item ${activeSection === i ? 'is-active' : ''} ${hoveredSection === i ? 'is-hovered' : ''}`}
+                        style={{
+                            backgroundColor: activeSection === i || hoveredSection === i ? `${s.accent}20` : 'transparent',
+                            borderColor: activeSection === i || hoveredSection === i ? `${s.accent}40` : 'transparent',
+                            transform: activeSection === i || hoveredSection === i ? 'scale(1.05)' : 'scale(1)'
+                        }}
                     >
                         <div className="hero-nav-dot-line" style={{ background: activeSection === i || hoveredSection === i ? s.accent : 'var(--text-secondary)', opacity: activeSection === i || hoveredSection === i ? 1 : 0.5 }} />
                         <span className="hero-nav-dot-label" style={{ color: activeSection === i ? s.accent : hoveredSection === i ? 'var(--text-primary)' : 'var(--text-secondary)' }}>
@@ -327,30 +348,22 @@ const Hero: React.FC = () => {
                 ))}
             </nav>
 
-
-            {/* Scroll Indicator */}
+            {/* Scroll Indicator & Mobile Bottom Dock */}
             <div className="rimac-scroll-indicator">
                 <div className="scroll-line" />
+                <div className="mobile-scroll-preview hide-desktop">
+                    {activeSection < sections.length - 1 ? (
+                        <>
+                            <span className="msp-text">SCROLL TO</span>
+                            <span className="msp-label">{sections[activeSection + 1].label}</span>
+                        </>
+                    ) : (
+                        <span className="msp-text">REACHED END</span>
+                    )}
+                </div>
             </div>
 
-            {/* Social Media Icons (Directly Black as requested) */}
-            <div className="hero-social-dock is-black-text">
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hsd-link">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                    </svg>
-                </a>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hsd-link">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                        <rect x="2" y="9" width="4" height="12"></rect>
-                        <circle cx="4" cy="4" r="2"></circle>
-                    </svg>
-                </a>
-                <div className="hsd-scroll-text">SCROLL TO DISCOVER</div>
-            </div>
+
 
             <div className="hero-bottom-navigator" style={{ position: 'fixed' }}>
                 <div className="hero-nav-bullets">
@@ -361,13 +374,34 @@ const Hero: React.FC = () => {
                             className="hero-nav-bullet"
                             style={{
                                 width: activeSection === i ? 24 : 6,
-                                background: activeSection === i ? sections[activeSection].accent : "rgba(255,255,255,0.15)"
+                                background: activeSection === i ? (sections[i]?.accent || "#ffffff") : "rgba(255, 255, 255, 0.15)"
                             }}
                         />
                     ))}
                 </div>
             </div>
-        </div>
+
+            {/* Social Dock - Fixed on bottom right (vertical on desktop, horizontal on mobile) */}
+            <div className="hero-social-dock">
+                <div className="rimac-social-links hsd-social-icons">
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="rsl-link instagram hsd-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="rsl-link linkedin hsd-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                            <rect x="2" y="9" width="4" height="12"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                    </a>
+                </div>
+                <div className="hsd-scroll-text hide-mobile">SCROLL TO DISCOVER</div>
+            </div>
+        </>
     );
 };
 

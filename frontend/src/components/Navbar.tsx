@@ -6,6 +6,8 @@ import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import MenuBackground from './MenuBackground';
+import SearchModal from './SearchModal';
+import './SearchModal.css';
 
 const logo = '/assets/powerfrill-logo.png';
 // Color logo asset is currently overridden by a different image in public/assets
@@ -17,12 +19,13 @@ const navLinks = [
     { id: 'bess', label: 'BESS', sub: 'Grid-Scale Storage · Smart EMS', path: '/hub/bess-info', type: 'link' },
     { id: 'application', label: 'Application', sub: 'Engineering · Custom Solutions', path: '/hub/application', type: 'link' },
     { id: 'innovation', label: 'Innovation', sub: 'R&D · SiC Tech · Patents', path: '/hub/innovation', type: 'link' },
-    { id: 'about', label: 'About', sub: 'Our Mission · Global Fleet · Reach', path: '/hub/about', type: 'link' }
+    { id: 'about', label: 'About', sub: 'Our Mission · Global Fleet · Reach', path: '/hub/about', type: 'link' },
 ];
 
 const Navbar: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isCartOpen, setIsCartOpen] = useState(false);
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const [isHeroLight, setIsHeroLight] = useState(false);
     const navigate = useNavigate();
@@ -140,42 +143,58 @@ const Navbar: React.FC = () => {
 
                 <div className="header-container">
                     <div className="header-left-section">
-                        {location.pathname !== '/' && (
-                            <div className="nav-back-wrapper">
-                                <button
-                                    className="global-back-nav"
-                                    onClick={() => navigate(-1)}
-                                    aria-label="Go back"
-                                >
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                        <line x1="19" y1="12" x2="5" y2="12"></line>
-                                        <polyline points="12 19 5 12 12 5"></polyline>
-                                    </svg>
-                                    <span className="back-text">BACK</span>
-                                </button>
-                            </div>
-                        )}
-                        {location.pathname !== '/products' && (
-                            <div className="logo-wrapper">
-                                <div
-                                    style={{ cursor: 'pointer' }}
-                                    onClick={() => {
-                                        if (location.pathname === '/') {
-                                            window.scrollTo({ top: 0, behavior: 'smooth' });
-                                        } else {
-                                            navigate('/');
-                                            window.scrollTo(0, 0);
-                                        }
-                                    }}
-                                >
-                                    <img src={logoSrc} alt="Powerfrill" className="logo-img" />
+                        <div className="logo-wrapper">
+                            {location.pathname === '/' && (
+                                <div className="nav-locations hide-mobile">
+                                    <a href="https://maps.google.com/?q=Hyderabad" target="_blank" rel="noopener noreferrer" className="icon-button location-btn" title="Hyderabad Location">
+                                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                            <circle cx="12" cy="10" r="3"></circle>
+                                        </svg>
+                                        <span className="location-tooltip">HYD</span>
+                                    </a>
                                 </div>
+                            )}
+                            <div
+                                style={{ cursor: 'pointer' }}
+                                onClick={() => {
+                                    if (location.pathname === '/') {
+                                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                                    } else {
+                                        navigate('/');
+                                        window.scrollTo(0, 0);
+                                    }
+                                }}
+                            >
+                                <img src={logoSrc} alt="Powerfrill" className="logo-img" />
                             </div>
-                        )}
+                        </div>
                     </div>
+
                     <div className="header-actions">
+                        {location.pathname !== '/' && (
+                            <button
+                                className="icon-button back-btn"
+                                onClick={() => navigate(-1)}
+                                aria-label="Go back"
+                            >
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                                    <polyline points="12 19 5 12 12 5"></polyline>
+                                </svg>
+                            </button>
+                        )}
                         <button
-                            className="theme-toggle-btn"
+                            className="icon-button search-toggle-btn"
+                            onClick={() => setIsSearchOpen(true)}
+                            aria-label="Open Search"
+                        >
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+                            </svg>
+                        </button>
+                        <button
+                            className="icon-button theme-toggle-btn hide-mobile-small"
                             onClick={toggleTheme}
                             aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
                         >
@@ -197,19 +216,19 @@ const Navbar: React.FC = () => {
                                 </svg>
                             )}
                         </button>
-                        <div className="user-action-group">
+                        <div className="user-action-group hide-mobile-small">
                             {user ? (
                                 <div className="user-profile-menu">
-                                    <button className="account-icon-btn" onClick={() => navigate('/login')}>
+                                    <button className="icon-button account-icon-btn" onClick={() => navigate('/login')}>
                                         <div className="avatar-mini">{user.full_name?.[0] || user.email[0].toUpperCase()}</div>
                                     </button>
-                                    <button className="logout-btn-nav" onClick={logout} title="Sign Out">
+                                    <button className="icon-button logout-btn-nav" onClick={logout} title="Sign Out">
                                         <svg viewBox="0 0 24 24" width="18" height="18"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z" fill="currentColor" /></svg>
                                     </button>
                                 </div>
                             ) : (
                                 <button
-                                    className="login-icon-btn"
+                                    className="icon-button login-icon-btn"
                                     onClick={() => {
                                         if (location.pathname === '/login') {
                                             navigate(-1);
@@ -227,7 +246,7 @@ const Navbar: React.FC = () => {
                             )}
                         </div>
                         <button
-                            className="cart-button"
+                            className="icon-button cart-button"
                             onClick={() => setIsCartOpen(true)}
                             aria-label="Open Cart"
                         >
@@ -237,7 +256,7 @@ const Navbar: React.FC = () => {
                             {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
                         </button>
                         <button
-                            className={`menu-button ${isMenuOpen ? 'active' : ''}`}
+                            className={`icon-button menu-button ${isMenuOpen ? 'active' : ''}`}
                             onClick={() => { setIsMenuOpen(!isMenuOpen); setIsCartOpen(false); }}
                             aria-label="Toggle Menu"
                         >
@@ -248,7 +267,7 @@ const Navbar: React.FC = () => {
                         </button>
                     </div>
                 </div>
-            </header>
+            </header >
 
             {/* Cart Drawer */}
             <div className={`cart-drawer ${isCartOpen ? 'open' : ''}`}>
@@ -312,6 +331,22 @@ const Navbar: React.FC = () => {
                             </div>
                         </button>
                     ))}
+                    <div className="mobile-only-menu-actions show-on-mobile-small">
+                        <button onClick={toggleTheme} className="menu-item mobile-action">
+                            <span className="menu-item-num">06</span>
+                            <div className="menu-item-bar" />
+                            <div className="menu-item-text-group">
+                                <span className="menu-item-label small">{theme === 'light' ? 'Dark Mode' : 'Light Mode'}</span>
+                            </div>
+                        </button>
+                        <button onClick={() => { setIsMenuOpen(false); navigate('/login'); }} className="menu-item mobile-action">
+                            <span className="menu-item-num">07</span>
+                            <div className="menu-item-bar" />
+                            <div className="menu-item-text-group">
+                                <span className="menu-item-label small">{user ? 'My Account' : 'Sign In'}</span>
+                            </div>
+                        </button>
+                    </div>
                 </nav>
 
                 <div className="menu-scene-label">Solar · Wind · BESS · EV · Grid</div>
@@ -320,6 +355,11 @@ const Navbar: React.FC = () => {
                     <span className="menu-btag-text">Powering Every Mile — Every Vehicle — Every Future</span>
                 </div>
             </div>
+
+            <SearchModal
+                isOpen={isSearchOpen}
+                onClose={() => setIsSearchOpen(false)}
+            />
         </>
     );
 };

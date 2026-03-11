@@ -5,6 +5,13 @@
     background: #0b0b0b;
 }
 
+@media (max-width: 768px) {
+    .battery-module-container {
+        height: 250vh;
+        /* Shorter scroll height on mobile */
+    }
+}
+
 .battery-module-loader {
     position: absolute;
     top: 0;

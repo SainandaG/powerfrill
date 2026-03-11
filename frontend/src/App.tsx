@@ -9,6 +9,7 @@ import LoginPage from './pages/LoginPage.tsx'
 import AdminDashboard from './pages/AdminDashboard.tsx'
 import StaffManagement from './pages/StaffManagement.tsx'
 import { productService } from './services/api.ts'
+import { productsData } from './data/products.ts'
 
 const ProductPage = lazy(() => import('./components/ProductPage.tsx'))
 const ProductsOverview = lazy(() => import('./components/ProductsOverview.tsx'))
@@ -57,15 +58,20 @@ function ProductPageWrapper() {
     async function fetchProduct() {
       setLoading(true);
       try {
-        // Find by ID or Slug
         if (productId) {
+          // Try local data first, then API
+          const local = productsData.find(p => p.id === productId);
+          if (local) { setProduct(local); setLoading(false); return; }
           const data = await productService.getById(productId);
           setProduct(data);
         } else if (productSlug) {
-          // You might need a getBySlug endpoint or just filter all
+          // Try local static data first (instant, no network)
+          const local = productsData.find(p => p.slug === productSlug);
+          if (local) { setProduct(local); setLoading(false); return; }
+          // Fallback: API (for admin-published products)
           const all = await productService.getAll();
           const found = all.find((p: any) => p.slug === productSlug);
-          setProduct(found);
+          setProduct(found ?? null);
         }
       } catch (err) {
         console.error('Failed to fetch product:', err);

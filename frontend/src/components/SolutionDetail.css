@@ -5,12 +5,18 @@
 .solution-detail-page {
     min-height: 100vh;
     background: transparent;
-    /* Changed from #000 */
+    padding-top: 140px;
     padding-bottom: 4rem;
     position: relative;
     z-index: 1;
     color: #fff;
     overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+    .solution-detail-page {
+        padding-top: 80px;
+    }
 }
 
 .solution-detail-page::before {
@@ -320,6 +326,23 @@
     justify-content: space-between;
     align-items: center;
     padding: 2rem 0;
+}
+
+@media (max-width: 768px) {
+    .hub-header-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1.5rem 0;
+    }
+
+    .hub-back-button {
+        font-size: 0.65rem;
+    }
+
+    .industrial-breadcrumb {
+        font-size: 0.6rem;
+    }
 }
 
 .hub-back-button {
@@ -821,8 +844,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-top: 240px;
-    /* Increased to avoid overlap with taller logo */
+    padding-top: 140px;
+    z-index: 10;
+}
+
+@media (max-width: 768px) {
+    .solution-hero-overlay {
+        padding-top: 80px;
+    }
 }
 
 .hero-label-wrap {
@@ -848,21 +877,25 @@
 }
 
 .hero-sub-strip {
-    margin-top: 2.5rem;
+    margin-top: 1.5rem;
     font-family: 'Orbitron', sans-serif;
-    font-size: 1.1rem;
+    font-size: clamp(0.6rem, 2vw, 1.1rem);
     font-weight: 800;
     color: var(--hub-accent);
-    letter-spacing: 0.4em;
+    letter-spacing: 0.2em;
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 1.5rem;
+    gap: 0.75rem;
     text-transform: uppercase;
+    width: 100%;
+    padding: 0 1rem;
+    flex-wrap: wrap;
 }
 
 .solution-hero-title {
     font-family: 'Orbitron', sans-serif;
-    font-size: clamp(2rem, 5.5vw, 4.5rem);
+    font-size: clamp(1.75rem, 5.5vw, 4.5rem);
     font-weight: 900;
     color: #fff;
     text-transform: uppercase;
@@ -872,6 +905,8 @@
     position: relative;
     z-index: 10;
     filter: drop-shadow(0 0 30px rgba(var(--hub-accent-rgb), 0.4));
+    width: 100%;
+    padding: 0 1rem;
 }
 
 .solution-hero-title::after {
@@ -896,6 +931,19 @@
     grid-template-columns: 1fr 340px;
     gap: 3rem;
     margin-top: 2rem;
+}
+
+@media (max-width: 1024px) {
+    .hub-main-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .hub-sidebar-widgets {
+        position: relative !important;
+        top: 0 !important;
+        margin-top: 2rem;
+    }
 }
 
 .hub-intro-box {
