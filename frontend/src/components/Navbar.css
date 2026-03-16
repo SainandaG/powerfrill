@@ -93,9 +93,9 @@
     }
 
     .nav-locations {
-        margin-right: 0.5rem;
-        margin-bottom: 0;
-        flex-shrink: 0;
+        margin-right: 0.5rem !important;
+        margin-bottom: 0 !important;
+        flex-shrink: 0 !important;
     }
 
     .location-btn {
