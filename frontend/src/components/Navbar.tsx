@@ -144,17 +144,6 @@ const Navbar: React.FC = () => {
                 <div className="header-container">
                     <div className="header-left-section">
                         <div className="logo-wrapper">
-                            {location.pathname === '/' && (
-                                <div className="nav-locations">
-                                    <a href="https://maps.google.com/?q=Hyderabad" target="_blank" rel="noopener noreferrer" className="icon-button location-btn" title="Hyderabad Location">
-                                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                            <circle cx="12" cy="10" r="3"></circle>
-                                        </svg>
-                                        <span className="location-tooltip">HYD</span>
-                                    </a>
-                                </div>
-                            )}
                             <div
                                 style={{ cursor: 'pointer' }}
                                 onClick={() => {
@@ -172,6 +161,17 @@ const Navbar: React.FC = () => {
                     </div>
 
                     <div className="header-actions">
+                        {location.pathname === '/' && (
+                            <div className="nav-locations">
+                                <a href="https://maps.google.com/?q=Hyderabad" target="_blank" rel="noopener noreferrer" className="icon-button location-btn" title="Hyderabad Location">
+                                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                        <circle cx="12" cy="10" r="3"></circle>
+                                    </svg>
+                                    <span className="location-tooltip">HYD</span>
+                                </a>
+                            </div>
+                        )}
                         {location.pathname !== '/' && (
                             <button
                                 className="icon-button back-btn"
