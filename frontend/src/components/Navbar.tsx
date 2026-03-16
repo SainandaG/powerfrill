@@ -145,7 +145,7 @@ const Navbar: React.FC = () => {
                     <div className="header-left-section">
                         <div className="logo-wrapper">
                             {location.pathname === '/' && (
-                                <div className="nav-locations hide-mobile">
+                                <div className="nav-locations">
                                     <a href="https://maps.google.com/?q=Hyderabad" target="_blank" rel="noopener noreferrer" className="icon-button location-btn" title="Hyderabad Location">
                                         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
@@ -194,7 +194,7 @@ const Navbar: React.FC = () => {
                             </svg>
                         </button>
                         <button
-                            className="icon-button theme-toggle-btn hide-mobile-small"
+                            className="icon-button theme-toggle-btn hide-mobile"
                             onClick={toggleTheme}
                             aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
                         >
@@ -216,7 +216,7 @@ const Navbar: React.FC = () => {
                                 </svg>
                             )}
                         </button>
-                        <div className="user-action-group hide-mobile-small">
+                        <div className="user-action-group">
                             {user ? (
                                 <div className="user-profile-menu">
                                     <button className="icon-button account-icon-btn" onClick={() => navigate('/login')}>
@@ -337,13 +337,6 @@ const Navbar: React.FC = () => {
                             <div className="menu-item-bar" />
                             <div className="menu-item-text-group">
                                 <span className="menu-item-label small">{theme === 'light' ? 'Dark Mode' : 'Light Mode'}</span>
-                            </div>
-                        </button>
-                        <button onClick={() => { setIsMenuOpen(false); navigate('/login'); }} className="menu-item mobile-action">
-                            <span className="menu-item-num">07</span>
-                            <div className="menu-item-bar" />
-                            <div className="menu-item-text-group">
-                                <span className="menu-item-label small">{user ? 'My Account' : 'Sign In'}</span>
                             </div>
                         </button>
                     </div>
