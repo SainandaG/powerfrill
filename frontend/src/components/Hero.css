@@ -270,6 +270,14 @@
     .hero-social-dock {
         display: none !important;
     }
+
+    .rimac-social-links {
+        display: none !important;
+    }
+
+    .hero-bottom-navigator {
+        bottom: 30px !important;
+    }
 }
 
 @media (max-width: 480px) {
@@ -628,8 +636,9 @@
     }
 
     .hero-side-scroller-nav,
-    .hero-stats-panel {
-        display: none;
+    .hero-stats-panel,
+    .hero-social-dock {
+        display: none !important;
     }
 
     .hero-visual-container {
@@ -652,8 +661,9 @@
     }
 
     .hero-bottom-navigator {
-        display: none !important;
-        /* Hide dot indicator on mobile to avoid overlapping footer */
+        display: flex !important;
+        bottom: 20px !important;
+        transform: translateX(-50%) scale(0.8);
     }
 }
 
@@ -798,6 +808,20 @@
     line-height: 0.95;
     max-width: 900px;
     color: var(--text-primary);
+}
+
+@media (max-width: 480px) {
+    .rimac-title {
+        font-size: clamp(1.8rem, 10vw, 2.5rem) !important;
+    }
+
+    .rimac-stats {
+        gap: 0.8rem !important;
+    }
+
+    .hnip-stats {
+        gap: 1rem;
+    }
 }
 
 .rimac-description {

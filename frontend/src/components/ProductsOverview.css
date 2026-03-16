@@ -287,11 +287,9 @@
     .po-mobile {
         display: flex;
         flex-direction: column;
-        height: calc(100vh - 70px);
-        /* Changed from 75px to 70px to match new mobile header height */
-        height: calc(100dvh - 70px);
-        overflow: hidden;
-        /* prevents double scrollbars */
+        height: auto;
+        min-height: calc(100vh - 70px);
+        overflow: visible;
     }
 
     /* ── Mobile top bar ──────────────────────────────────── */
@@ -372,8 +370,7 @@
         flex-direction: column;
         overflow-y: auto;
         scrollbar-width: none;
-        max-height: calc(100vh - 120px);
-        /* Let it fill available vertical space if subcategories are long */
+        max-height: 400px;
     }
 
     .mobile-cat-left::-webkit-scrollbar {
@@ -433,7 +430,7 @@
         flex: 1;
         overflow-y: auto;
         scrollbar-width: none;
-        max-height: calc(100vh - 120px);
+        max-height: 400px; /* Limit height to show products below */
         background: var(--bg-primary);
     }
 
@@ -503,7 +500,7 @@
     /* ── Mobile product area ─────────────────────────────── */
     .mobile-product-area {
         flex: 1;
-        overflow-y: auto;
+        overflow-y: visible;
         -webkit-overflow-scrolling: touch;
         padding: 16px 12px 80px;
         scrollbar-width: none;

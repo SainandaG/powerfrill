@@ -895,7 +895,7 @@
 
 .solution-hero-title {
     font-family: 'Orbitron', sans-serif;
-    font-size: clamp(1.75rem, 5.5vw, 4.5rem);
+    font-size: clamp(1.5rem, 8vw, 2.5rem);
     font-weight: 900;
     color: #fff;
     text-transform: uppercase;
@@ -1297,6 +1297,13 @@
     gap: 3rem;
 }
 
+@media (max-width: 768px) {
+    .category-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
 .category-hover-card {
     background: rgba(15, 15, 15, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.05);
@@ -1480,11 +1487,11 @@
     }
 
     .solution-hero-title {
-        font-size: 2.5rem !important;
+        font-size: 1.75rem !important;
     }
 
     .solution-hero-overlay {
-        padding-top: 180px;
+        padding-top: 120px;
     }
 
     .hub-intro-box .hub-objective {
@@ -1506,7 +1513,7 @@
 
 @media (max-width: 480px) {
     .solution-hero-title {
-        font-size: 2rem !important;
+        font-size: 1.4rem !important;
     }
 
     .ch-title {

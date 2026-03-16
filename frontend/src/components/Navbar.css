@@ -75,11 +75,11 @@
     }
 
     .hide-mobile {
-        display: none !important;
+        display: flex !important;
     }
 
     .hide-mobile-small {
-        display: none !important;
+        display: flex !important; /* Keep visible on tablet, hide on very small mob */
     }
 
     .show-on-mobile-small {
@@ -419,13 +419,10 @@ body.menu-is-open .main-content-wrapper {
 }
 
 /* --- Menu Background Scene --- */
-.menu-scene-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+@media (max-width: 768px) {
+    .menu-scene-bg {
+        opacity: 0.25; /* Subtler background on mobile */
+    }
 }
 
 .menu-svg-scene {
@@ -659,6 +656,12 @@ body.menu-is-open .main-content-wrapper {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+}
+
+@media (max-width: 768px) {
+    .user-action-group {
+        gap: 0.4rem;
+    }
 }
 
 .avatar-mini {
