@@ -20,6 +20,7 @@
 
 .hero-scroll-section {
     height: 100vh;
+    height: 100dvh;
 }
 
 .hero-grid-overlay {
@@ -205,7 +206,7 @@
 
 @media (max-width: 768px) {
     .rimac-content-container {
-        padding: 60px 4% 40px !important;
+        padding: 95px 1.5rem 40px !important; /* Standardized top padding for navbar clearance */
         width: 100% !important;
         display: flex !important;
         flex-direction: column !important;
@@ -246,9 +247,11 @@
     }
 
     .rimac-stats {
-        flex-direction: column !important;
-        gap: 1.5rem !important;
-        margin-bottom: 2.5rem !important;
+        flex-direction: row !important; /* Keep horizontal if possible, or tighter vertical */
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.25rem !important;
+        margin-bottom: 2rem !important;
     }
 
     .rimac-stat-val {
@@ -760,12 +763,7 @@
     /* Let clicks pass through to video if needed, but we'll enable for children */
 }
 
-@media (max-width: 768px) {
-    .rimac-content-container {
-        padding: 85px 5% 40px;
-        /* Adjusted padding below header */
-    }
-}
+/* Consolidated with mobile-first query above */
 
 .rimac-content-container.layout-center {
     align-items: center;
